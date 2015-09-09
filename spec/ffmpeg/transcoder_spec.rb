@@ -81,7 +81,7 @@ module FFMPEG
           FileUtils.rm_f "#{tmp_path}/optionalized.mp4"
 
           options = {video_codec: "libx264", frame_rate: 10, resolution: "320x240", video_bitrate: 300,
-                     audio_codec: "libfaac", audio_bitrate: 32, audio_sample_rate: 22050, audio_channels: 1}
+                     audio_codec: "libmp3lame", audio_bitrate: 32, audio_sample_rate: 22050, audio_channels: 1}
 
           encoded = Transcoder.new(movie, "#{tmp_path}/optionalized.mp4", options).run
           encoded.video_bitrate.should be_within(90).of(300)
@@ -89,7 +89,7 @@ module FFMPEG
           encoded.resolution.should == "320x240"
           encoded.frame_rate.should == 10.0
           encoded.audio_bitrate.should be_within(2).of(32)
-          encoded.audio_codec.should =~ /aac/
+          encoded.audio_codec.should =~ /mp3/
           encoded.audio_sample_rate.should == 22050
           encoded.audio_channels.should == 1
         end
